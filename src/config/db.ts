@@ -7,6 +7,7 @@ export const connectDB = async () => {
     if (!["mongodb:", "mongodb+srv:"].includes(parsed.protocol)) {
         throw new Error("Invalid MONGODB_URI protocol");
     }
+    console.log("[DB] Connecting to MongoDB...");
     await mongoose.connect(uri);
-    console.log("MongoDB connected");
+    console.log("[DB] ✅ MongoDB connected successfully");
 };
