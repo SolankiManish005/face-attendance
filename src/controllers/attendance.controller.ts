@@ -47,7 +47,8 @@ export const markAttendance = async (req: AuthRequest, res: Response) => {
 
             if (matched) {
                 console.log(`[ATTENDANCE] ✅ Face matched - employee: ${emp.name} (${emp.employeeId})`);
-                const today = new Date().toISOString().split("T")[0];
+                const today = new Date().toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata" }).split("/").reverse().join("-");
+                const timeNow = new Date().toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true });
 
                 let record = await Attendance.findOne({
                     employeeId: emp.employeeId,
@@ -61,14 +62,14 @@ export const markAttendance = async (req: AuthRequest, res: Response) => {
                         employeeId: emp.employeeId,
                         companyId,
                         date: today,
-                        checkIn: new Date().toLocaleTimeString()
+                        checkIn: timeNow
                     });
-                    console.log(`[ATTENDANCE] ✅ Check-in recorded - employee: ${emp.name}, time: ${record.checkIn}`);
+                    console.log(`[ATTENDANCE] ✅ Check-in recorded - employee: ${emp.name}, time: ${timeNow}`);
                     return res.json({ message: "Check-in successful", attendance: emp });
                 } else {
-                    record.checkOut = new Date().toLocaleTimeString();
+                    record.checkOut = timeNow;
                     await record.save();
-                    console.log(`[ATTENDANCE] ✅ Check-out recorded - employee: ${emp.name}, time: ${record.checkOut}`);
+                    console.log(`[ATTENDANCE] ✅ Check-out recorded - employee: ${emp.name}, time: ${timeNow}`);
                     return res.json({ message: "Check-out successful", attendance: emp });
                 }
             }
