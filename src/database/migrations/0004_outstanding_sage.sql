@@ -1,0 +1,1 @@
+ALTER TABLE "accounts" ADD COLUMN "label_face_descriptors_string" text;

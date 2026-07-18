@@ -1,0 +1,1 @@
+ALTER TABLE "faces" ADD COLUMN "descriptor_string" text NOT NULL;

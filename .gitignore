@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Environment variables - NEVER commit these
+.env
+.env.local
+.env.*.local
+
+# Build output
+.output/
+dist/
+
+# Database backups - contain real data
+backups/
+internal/database/*.sql
+
+# User uploaded face images - contain real user data
+uploads/faces/*.jpg
+uploads/faces/*.jpeg
+uploads/faces/*.png
+!uploads/faces/.gitkeep
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
